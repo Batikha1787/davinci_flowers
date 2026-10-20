@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Davinci flowers — голландские пионы в Астане</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#0d0608;--panel:#1a0b11;--panel2:#240f18;--plum:#6e1a3c;--berry:#b02a5e;--rose:#e58aa6;--gold:#cfa86a;--green:#2f5d3a;--text:#f3e4df;--muted:#b9979f;--line:#44202e;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:300 16px/1.6 Jost,system-ui,sans-serif}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;margin:0;line-height:1.1}
+.w{max-width:1120px;margin:0 auto;padding:0 20px}
+a{color:inherit}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(13,6,8,.92);border-bottom:1px solid var(--line)}
+header .w{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+.logo{font-family:'Marck Script',cursive;font-size:32px;color:var(--rose);text-decoration:none}
+nav{display:flex;gap:26px;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--rose)}
+.tel{font-size:14px;text-decoration:none;white-space:nowrap}
+.btn{display:inline-block;background:var(--berry);color:#fff;border:1px solid var(--berry);padding:13px 28px;font:400 13px Jost,sans-serif;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;border-radius:2px}
+.btn:hover{background:var(--plum)}
+.btn.o{background:none;color:var(--text);border-color:var(--line)}
+.hero{position:relative;overflow:hidden;padding:90px 0 80px;background:radial-gradient(ellipse at 75% 40%,#4a1228 0,transparent 60%),var(--bg)}
+.hero .w{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:center}
+.script{font-family:'Marck Script',cursive;font-size:clamp(30px,4vw,48px);color:var(--rose);display:block;margin-bottom:-6px}
+.hero h1{font-size:clamp(56px,9vw,120px);letter-spacing:.04em;text-transform:uppercase;background:linear-gradient(#fff,#a88f95);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:430px;margin:18px 0 28px;font-size:17px}
+.hero .b{display:flex;gap:12px;flex-wrap:wrap}
+.peony{aspect-ratio:1;width:100%;max-width:470px;justify-self:center;filter:drop-shadow(0 0 40px rgba(176,42,94,.45));
+background:radial-gradient(circle at 62% 38%,#fbc3d2 0 4%,#ec7b9c 5% 11%,#c0336a 12% 20%,#7d1a45 21% 29%,transparent 30%),radial-gradient(circle at 36% 62%,#f7a9bd 0 5%,#d8527f 6% 13%,#a02356 14% 24%,#5f1236 25% 34%,transparent 35%),radial-gradient(circle at 70% 70%,#8e2a54 0 8%,#5b1634 9% 17%,transparent 18%),radial-gradient(circle at 24% 28%,#7b3a58 0 7%,#4a1a31 8% 14%,transparent 15%)}
+.info{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel)}
+.info .w{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;padding-top:20px;padding-bottom:20px;font-size:13px;color:var(--muted)}
+.info b{display:block;color:var(--text);font-weight:500;letter-spacing:.04em}
+section{padding:72px 0}
+.kick{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h2{font-size:clamp(32px,4.5vw,48px);margin-bottom:12px}
+.orn{height:1px;width:90px;background:linear-gradient(90deg,var(--gold),transparent);margin:14px 0 30px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.tile{min-height:110px;display:flex;align-items:flex-end;padding:14px;border:1px solid var(--line);border-radius:4px;font:500 20px 'Cormorant Garamond',serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;background:radial-gradient(circle at 105% 105%,var(--berry),transparent 45%),linear-gradient(160deg,var(--panel2),var(--bg))}
+.tile:hover{border-color:var(--berry)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+.art{aspect-ratio:4/3;position:relative;background-color:#1d0a12;background-image:radial-gradient(circle at 50% 100%,rgba(255,255,255,.05),transparent 60%),radial-gradient(circle at 34% 42%,var(--a) 0 11%,transparent 12%),radial-gradient(circle at 62% 36%,var(--b) 0 13%,transparent 14%),radial-gradient(circle at 50% 60%,var(--c) 0 15%,transparent 16%),radial-gradient(circle at 25% 64%,var(--b) 0 9%,transparent 10%),radial-gradient(circle at 76% 62%,var(--a) 0 10%,transparent 11%),radial-gradient(circle at 50% 26%,var(--s) 0 6%,transparent 7%)}
+.art.p{--a:#f08aa9;--b:#fbc3d2;--c:#c0336a;--s:#3f7a4a}
+.art.r{--a:#9c1a45;--b:#d8527f;--c:#6a0f31;--s:#356b3f}
+.art.w{--a:#f7ece8;--b:#e9d5d1;--c:#f3bfcc;--s:#4a7d52}
+.art.l{--a:#8d6fd0;--b:#bda6ee;--c:#5e3da3;--s:#3f7a4a}
+.art.s{--a:#f5a7b8;--b:#fde0e6;--c:#e06a8e;--s:#3f7a4a}
+.art.o{--a:#ff9a6a;--b:#ffd0a8;--c:#d9553a;--s:#3f7a4a}
+.tag{position:absolute;top:10px;right:10px;background:var(--berry);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px}
+.card .t{padding:16px 18px 8px}
+.card h3{font-size:26px}
+.card small{display:block;color:var(--muted);font-size:13px;margin:4px 0 8px}
+.card .pr{font:500 20px 'Cormorant Garamond',serif;color:var(--gold)}
+.card a.go{margin-top:auto;border-top:1px solid var(--line);padding:12px 18px;font-size:13px;letter-spacing:.06em;color:var(--muted);text-decoration:none}
+.card a.go:hover{color:var(--rose)}
+.ban{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+.ban div{border:1px solid var(--line);padding:30px;background:radial-gradient(circle at 100% 100%,var(--plum),transparent 55%),var(--panel)}
+.ban p{color:var(--muted);margin:10px 0 18px}
+.rate{display:flex;align-items:center;gap:20px;flex-wrap:wrap;border:1px solid var(--line);padding:28px;background:var(--panel)}
+.rate b{font:500 64px 'Cormorant Garamond',serif;color:var(--gold);line-height:1}
+.ct{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.ct>div{border:1px solid var(--line);border-top:2px solid var(--berry);padding:22px;background:var(--panel)}
+.ct h3{font-size:24px;margin-bottom:8px}
+.ct p{margin:0;color:var(--muted);font-size:15px}
+.ct a{color:var(--rose);text-decoration:none}
+footer{border-top:1px solid var(--line);padding:36px 0;color:var(--muted);font-size:13px}
+footer .w{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
+footer .logo{font-size:28px}
+@media(max-width:780px){nav{display:none}.hero .w,.ban{grid-template-columns:1fr}.hero{padding:50px 0}.tel{display:none}}
+</style>
+</head>
+<body>
+<header><div class="w"><a class="logo" href="#top">Davinci flowers</a>
+<nav><a href="#cat">Коллекции</a><a href="#pop">Каталог</a><a href="#about">Отзывы</a><a href="#contact">Контакты</a></nav>
+<a class="tel" href="tel:+77018494152">+7 701 849 41 52</a></div></header>
+
+<div class="hero" id="top"><div class="w">
+<div><span class="script">Голландские</span><h1>Пионы</h1>
+<p>Роскошь, доступная каждому. Авторские букеты и сезонные композиции для самых важных моментов — с доставкой по Астане.</p>
+<div class="b"><a class="btn" href="#pop">Смотреть каталог</a><a class="btn o" href="https://wa.me/77018494152?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9D%D1%83%D0%B6%D0%B5%D0%BD%20%D0%B8%D0%BD%D0%B4%D0%B8%D0%B2%D0%B8%D0%B4%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D0%BF%D0%BE%D0%B4%D0%B1%D0%BE%D1%80">Индивидуальный подбор</a></div></div>
+<div class="peony" role="img" aria-label="Пионы"></div>
+</div></div>
+
+<div class="info"><div class="w">
+<span><b>Свежие цветы</b>голландские пионы и сезонные букеты</span>
+<span><b>Доставка по Астане</b>заказ через WhatsApp</span>
+<span><b>Фото перед отправкой</b>согласуем букет с вами</span>
+<span><b>Ежедневно 9:00–24:00</b>Есиль район</span></div></div>
+
+<section id="cat"><div class="w"><div class="kick">Коллекции</div><h2>Идея для вашего события</h2><div class="orn"></div>
+<div class="tiles" id="tiles"></div></div></section>
+
+<section id="pop" style="padding-top:0"><div class="w"><div class="kick">Каталог</div><h2>Популярные букеты</h2><div class="orn"></div>
+<div class="grid" id="grid"></div>
+<div class="ban">
+<div><h3>Свадебная флористика</h3><p>Изысканные цветочные решения для вашего особенного дня.</p><a class="btn o" href="#" data-o="Свадебная флористика">Узнать больше</a></div>
+<div><h3>Индивидуальный подбор</h3><p>Расскажите о вашем событии — мы создадим идеальный букет.</p><a class="btn o" href="#" data-o="Индивидуальный подбор">Оставить заявку</a></div>
+</div></div></section>
+
+<section id="about" style="padding-top:0"><div class="w"><div class="rate"><b>4.9</b><div><h3 style="font-size:28px">Нас любят в Астане</h3><span style="color:var(--muted)">Рейтинг по отзывам клиентов в 2ГИС — более 320 отзывов</span></div>
+<a class="btn" style="margin-left:auto" href="https://2gis.kz/astana/firm/70000001100230890/tab/reviews">Читать отзывы</a></div></div></section>
+
+<section id="contact" style="padding-top:0"><div class="w"><div class="kick">Контакты</div><h2>Ждём вас в гости</h2><div class="orn"></div><div class="ct">
+<div><h3>Адрес</h3><p>г. Астана, ул. Алихан Бокейхан, 16<br>Есиль район<br><a href="https://2gis.kz/astana/firm/70000001100230890">Маршрут в 2ГИС →</a></p></div>
+<div><h3>Часы работы</h3><p>Ежедневно<br>с 9:00 до 24:00</p></div>
+<div><h3>Позвоните</h3><p><a href="tel:+77018494152">+7 701 849 41 52</a><br>Заказ и доставка</p></div>
+<div><h3>Напишите</h3><p><a href="https://wa.me/77018494152">WhatsApp</a> · <a href="https://instagram.com/davinci_flowers.kz">Instagram</a><br>@davinci_flowers.kz</p></div>
+</div></div></section>
+
+<footer><div class="w"><span class="logo">Davinci flowers</span><span>© 2026 · Цветочный магазин, Астана</span></div></footer>
+
+<script>
+const WA='https://wa.me/77018494152?text=';
+const o=t=>WA+encodeURIComponent('Здравствуйте! Хочу заказать: '+t);
+const T=["День рождения","Свадьба","Юбилей","Просто так","Корпоративы","Новоселье"];
+document.getElementById('tiles').innerHTML=T.map(t=>`<a class="tile" href="${o(t)}">${t}</a>`).join('');
+const P=[["Пионовое облако","Пион, гортензия","p",24900,"Хит"],["Бордовый сад","Пион, астильба, ранункулюс","r",21900,"Новинка"],["Шёлковое утро","Пион, гвоздика, эвкалипт","s",15600],["Белая нежность","Розы, гортензия, эустома","w",12900],["Лавандовое поле","Лаванда, эустома","l",9900],["Тёплый закат","Герберы, розы, зелень","o",10900]];
+document.getElementById('grid').innerHTML=P.map(p=>`<div class="card"><div class="art ${p[2]}">${p[4]?'<span class="tag">'+p[4]+'</span>':''}</div><div class="t"><h3>${p[0]}</h3><small>${p[1]}</small><span class="pr">от ${p[3].toLocaleString('ru-RU')} ₸</span></div><a class="go" href="${o('букет «'+p[0]+'»')}">Заказать в WhatsApp →</a></div>`).join('');
+document.querySelectorAll('[data-o]').forEach(a=>a.href=o(a.dataset.o));
+</script>
+</body>
+</html>
