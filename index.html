@@ -80,7 +80,7 @@ footer h3{font-size:30px;color:#f6e3df}
 </head>
 <body>
 <header><div class="w"><div class="logo">Davinci flowers</div>
-<nav><a href="#cat">Коллекции</a><a href="#pop">Букеты</a><a href="#build">Конструктор</a><a href="#contact">Контакты</a></nav>
+<nav><a href="#cat">Коллекции</a><a href="#pop">Букеты</a><a href="#build">Конструктор</a><a href="#contact">Контакты</a><a href="/admin" style="color:var(--rose)">База знаний</a></nav>
 <a href="tel:+77018494152" style="color:var(--text);text-decoration:none;font-weight:600;font-size:14px">+7 701 849 41 52</a><a class="btn" href="#pop">Заказать</a></div></header>
 
 <div class="hero"><div class="w">
@@ -126,7 +126,220 @@ footer h3{font-size:30px;color:#f6e3df}
 <div><h3>Позвоните</h3><p><a href="tel:+77018494152">+7 701 849 41 52</a><br>Заказ и доставка</p></div>
 <div><h3>Напишите</h3><p><a href="https://wa.me/77018494152">WhatsApp</a> · <a href="https://instagram.com/davinci_flowers.kz">Instagram</a><br>@davinci_flowers.kz</p></div>
 </div></div></section>
-<footer><div class="w"><div><h3>Дарите чувства, которые остаются в сердце навсегда</h3></div><div>© 2026 Davinci flowers<br>Цветочный магазин, Астана</div></div></footer>
+
+<footer><div class="w">
+  <div><h3>Дарите чувства, которые остаются в сердце навсегда</h3></div>
+  <div>
+    © 2026 Davinci flowers<br>Цветочный магазин, Астана<br>
+    <a href="/admin" style="color:var(--blush);font-size:12px;text-decoration:underline;margin-top:6px;display:inline-block">База знаний RAG (Админка)</a>
+  </div>
+</div></footer>
+
+<!-- ВИДЖЕТ ЧАТ-БОТА -->
+<div id="davinciChatWidget">
+  <style>
+    #chatToggleBtn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e63e6d, #9c1240);
+      color: #fff;
+      border: 0;
+      box-shadow: 0 6px 20px rgba(156, 18, 64, 0.4);
+      cursor: pointer;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    #chatToggleBtn:hover { transform: scale(1.08); }
+    #chatBox {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      width: 380px;
+      max-width: calc(100vw - 32px);
+      height: 520px;
+      max-height: calc(100vh - 120px);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(90, 10, 38, 0.15);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    #chatBox.open { display: flex; animation: chatPop 0.3s ease; }
+    @keyframes chatPop {
+      from { opacity: 0; transform: translateY(16px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .chat-head {
+      background: linear-gradient(135deg, #e63e6d, #9c1240);
+      color: #fff;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-head h4 {
+      margin: 0;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .chat-head span { font-size: 11px; opacity: 0.9; }
+    .chat-close {
+      background: none;
+      border: 0;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0.8;
+      padding: 0;
+      line-height: 1;
+    }
+    .chat-close:hover { opacity: 1; }
+    .chat-messages {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--bg);
+      font-size: 14px;
+    }
+    .chat-msg {
+      max-width: 84%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+    .chat-msg.bot {
+      background: #fff;
+      color: var(--text);
+      align-self: flex-start;
+      border: 1px solid var(--line);
+      border-bottom-left-radius: 4px;
+    }
+    .chat-msg.user {
+      background: linear-gradient(135deg, #e63e6d, #9c1240);
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-src {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 3px 8px;
+      background: var(--cream);
+      color: var(--wine);
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid var(--line);
+    }
+    .chat-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .chat-chip {
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--rose);
+      padding: 5px 10px;
+      border-radius: 14px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chat-chip:hover {
+      background: var(--blush);
+      color: var(--wine);
+    }
+    .chat-input-row {
+      display: flex;
+      gap: 8px;
+      padding: 12px 14px;
+      background: #fff;
+      border-top: 1px solid var(--line);
+    }
+    .chat-input-row input {
+      flex: 1;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 10px 14px;
+      font: 14px Manrope, sans-serif;
+      outline: none;
+      color: var(--text);
+      background: var(--bg);
+    }
+    .chat-input-row input:focus {
+      border-color: var(--rose);
+      background: #fff;
+    }
+    .chat-send-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--rose);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chat-send-btn:hover { background: var(--wine); }
+    .chat-typing {
+      font-size: 12px;
+      color: var(--muted);
+      align-self: flex-start;
+      font-style: italic;
+    }
+  </style>
+
+  <!-- Кнопка вызова чата -->
+  <button id="chatToggleBtn" onclick="toggleChat()" aria-label="Открыть чат с флористом">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+  </button>
+
+  <!-- Окно чата -->
+  <div id="chatBox">
+    <div class="chat-head">
+      <div>
+        <h4>DaVinci Assistant</h4>
+        <span>Консультант по цветам и RAG</span>
+      </div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        Здравствуйте! 🌸 Рада приветствовать вас в DaVinci Flowers. Чем могу помочь: подобрать букет, рассказать об уходе или доставке по Астане?
+        <div class="chat-chips">
+          <button class="chat-chip" onclick="sendChip('Как ухаживать за пионами?')">Пионы: уход</button>
+          <button class="chat-chip" onclick="sendChip('Какие букеты есть в наличии?')">Популярные букеты</button>
+          <button class="chat-chip" onclick="sendChip('Каковы условия доставки?')">Доставка</button>
+        </div>
+      </div>
+    </div>
+    <form class="chat-input-row" onsubmit="handleChatSubmit(event)">
+      <input type="text" id="chatInput" placeholder="Задайте вопрос флористу..." autocomplete="off">
+      <button type="submit" class="chat-send-btn" aria-label="Отправить">➤</button>
+    </form>
+  </div>
+</div>
 
 <script>
 const P=[["Пионовый сад","p",4590,"Хит"],["Розовое облако","t",5290],["Нежность утра","w2",3690],["Лавандовое поле","l",2990],["Белоснежный","w2",3290],["Мисти бабс","o",3890]];
@@ -137,6 +350,90 @@ function draw(){document.getElementById('rows').innerHTML=F.map((f,i)=>`<div cla
 document.getElementById('total').textContent=F.reduce((s,f,i)=>s+f[1]*q[i],0).toLocaleString('ru-RU')+' ₸'}
 function ch(i,d){q[i]=Math.max(0,q[i]+d);draw()}
 draw();
+
+// ЛОГИКА ЧАТ-БОТА
+function toggleChat() {
+  const box = document.getElementById('chatBox');
+  box.classList.toggle('open');
+  if (box.classList.contains('open')) {
+    document.getElementById('chatInput').focus();
+  }
+}
+
+function sendChip(text) {
+  document.getElementById('chatInput').value = text;
+  handleChatSubmit(new Event('submit'));
+}
+
+async function handleChatSubmit(e) {
+  if (e) e.preventDefault();
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  // Добавляем сообщение пользователя
+  appendMessage(text, 'user');
+  input.value = '';
+
+  // Индикатор набора текста
+  const typingEl = document.createElement('div');
+  typingEl.className = 'chat-typing';
+  typingEl.id = 'chatTyping';
+  typingEl.textContent = 'DaVinci подбирает ответ...';
+  document.getElementById('chatMessages').appendChild(typingEl);
+  scrollChat();
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    });
+    const data = await res.json();
+    typingEl.remove();
+
+    if (res.ok) {
+      appendMessage(data.answer, 'bot', data.sources);
+    } else {
+      appendMessage(data.error || 'Извините, сейчас не удалось получить ответ. Попробуйте ещё раз.', 'bot');
+    }
+  } catch (err) {
+    typingEl.remove();
+    appendMessage('Сетевая ошибка при связи с сервером. Пожалуйста, проверьте подключение.', 'bot');
+  }
+}
+
+function appendMessage(text, sender, sources = []) {
+  const container = document.getElementById('chatMessages');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `chat-msg ${sender}`;
+
+  // Форматируем переносы строк
+  msgDiv.innerHTML = escapeHtml(text).replace(/\n/g, '<br>');
+
+  // Если есть источники и они не продублированы в тексте
+  if (sources && sources.length > 0 && !text.includes('📌 Источник')) {
+    const srcSpan = document.createElement('div');
+    srcSpan.className = 'chat-src';
+    srcSpan.textContent = `📌 Источник: ${sources.join(', ')}`;
+    msgDiv.appendChild(srcSpan);
+  }
+
+  container.appendChild(msgDiv);
+  scrollChat();
+}
+
+function scrollChat() {
+  const container = document.getElementById('chatMessages');
+  container.scrollTop = container.scrollHeight;
+}
+
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
 </script>
 </body>
 </html>
+

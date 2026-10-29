@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Админ-панель базы знаний — Davinci Flowers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Marck+Script&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fff5f3;
+  --card: #ffffff;
+  --blush: #fbd5da;
+  --cream: #fdebe6;
+  --wine: #5a0a26;
+  --rose: #e0295e;
+  --text: #3b0b1c;
+  --muted: #80505d;
+  --line: #f2c5cc;
+  --danger: #b01a2e;
+  --success: #2b7a3e;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Manrope', system-ui, sans-serif;
+  line-height: 1.5;
+  padding-bottom: 60px;
+}
+h1, h2, h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 500;
+  margin: 0;
+}
+.w {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+header {
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  padding: 16px 0;
+  margin-bottom: 30px;
+}
+header .w {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-family: 'Marck Script', cursive;
+  font-size: 28px;
+  color: var(--rose);
+  text-decoration: none;
+}
+.nav-link {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+.nav-link:hover {
+  color: var(--rose);
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(90, 10, 38, 0.04);
+}
+.btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #e63e6d, #9c1240);
+  color: #fff;
+  border: 0;
+  border-radius: 40px;
+  padding: 11px 24px;
+  font: 500 14px 'Manrope', sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn:hover { opacity: 0.9; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.o {
+  background: none;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+.btn.danger {
+  background: #fff;
+  color: var(--danger);
+  border: 1px solid #ffd0d6;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+.btn.danger:hover {
+  background: #ffebee;
+}
+input[type="password"], input[type="text"], textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font: 14px 'Manrope', sans-serif;
+  color: var(--text);
+  background: #fff;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+.dropzone {
+  border: 2px dashed var(--line);
+  border-radius: 16px;
+  padding: 32px 20px;
+  text-align: center;
+  background: var(--cream);
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.dropzone.hover {
+  border-color: var(--rose);
+  background: #fff;
+}
+.dropzone p {
+  margin: 6px 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.dropzone b {
+  color: var(--wine);
+  font-size: 15px;
+}
+.msg {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 18px;
+  display: none;
+}
+.msg.success {
+  background: #eafaf1;
+  color: var(--success);
+  border: 1px solid #c2ebd1;
+  display: block;
+}
+.msg.error {
+  background: #fdf2f4;
+  color: var(--danger);
+  border: 1px solid #f9ccd3;
+  display: block;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 14px;
+}
+th {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--line);
+  color: var(--wine);
+  font-weight: 600;
+}
+td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.badge {
+  background: var(--cream);
+  color: var(--wine);
+  border: 1px solid var(--line);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.empty-state {
+  text-align: center;
+  padding: 36px 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.auth-panel {
+  max-width: 420px;
+  margin: 60px auto;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="w">
+    <a href="/" class="logo">Davinci flowers</a>
+    <div style="display: flex; gap: 16px; align-items: center;">
+      <a href="/" class="nav-link">← На сайт</a>
+      <button id="logoutBtn" class="btn o" style="display: none; padding: 7px 16px; font-size: 13px;" onclick="logout()">Выйти</button>
+    </div>
+  </div>
+</header>
+
+<div class="w">
+  <!-- БЛОК АВТОРИЗАЦИИ (ЕСЛИ НЕ ВОШЕЛ) -->
+  <div id="authSection" class="card auth-panel">
+    <h2 style="font-size: 26px; margin-bottom: 8px;">Вход в панель управления</h2>
+    <p style="color: var(--muted); font-size: 13px; margin-bottom: 20px;">Введите пароль администратора для работы с документами базы знаний.</p>
+    <div id="authMsg" class="msg"></div>
+    <form onsubmit="handleLogin(event)">
+      <label style="font-size: 13px; font-weight: 600; color: var(--wine);">Пароль администратора:</label>
+      <input type="password" id="passwordInput" placeholder="Введите пароль..." required autofocus>
+      <button type="submit" class="btn" style="width: 100%;">Войти</button>
+    </form>
+  </div>
+
+  <!-- ОСНОВНОЙ ДАШБОРД (ЕСЛИ АВТОРИЗОВАН) -->
+  <div id="dashboardSection" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h1 style="font-size: 32px; color: var(--wine);">Управление базой знаний RAG</h1>
+        <p style="color: var(--muted); font-size: 14px; margin: 4px 0 0;">Загружайте регламенты, справочники и каталоги цветов в форматах .txt и .md.</p>
+      </div>
+      <button id="reindexBtn" class="btn o" onclick="reindexAll()">⟳ Переиндексировать всё</button>
+    </div>
+
+    <div id="dashMsg" class="msg"></div>
+
+    <!-- ЗАГРУЗКА ДОКУМЕНТА -->
+    <div class="card">
+      <h3 style="font-size: 20px; margin-bottom: 14px; color: var(--wine);">Загрузить новый документ</h3>
+      
+      <div id="dropzone" class="dropzone" onclick="document.getElementById('fileInput').click()">
+        <b>Нажмите для выбора файла или перетащите его сюда</b>
+        <p>Поддерживаются текстовые форматы: <b>.txt, .md</b> (до 1 МБ)</p>
+        <span id="selectedFileName" style="display: block; margin-top: 8px; font-weight: 600; color: var(--rose);"></span>
+      </div>
+      <input type="file" id="fileInput" accept=".txt,.md" style="display: none;" onchange="onFileSelected(this)">
+
+      <details style="margin-bottom: 16px;">
+        <summary style="cursor: pointer; color: var(--muted); font-size: 13px;">или введите / вставьте текст вручную</summary>
+        <div style="margin-top: 12px;">
+          <label style="font-size: 13px; font-weight: 500;">Название документа:</label>
+          <input type="text" id="manualDocName" placeholder="Например: Справочник_пионы_2026.md">
+          <label style="font-size: 13px; font-weight: 500;">Текст документа:</label>
+          <textarea id="manualDocContent" rows="6" placeholder="Вставьте текст документа здесь..."></textarea>
+        </div>
+      </details>
+
+      <button id="uploadBtn" class="btn" onclick="uploadDocument()">Загрузить и проиндексировать</button>
+    </div>
+
+    <!-- СПИСОК ДОКУМЕНТОВ -->
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="font-size: 20px; color: var(--wine);">Загруженные документы</h3>
+        <span id="docCountBadge" class="badge">0 документов</span>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 50px;">ID</th>
+              <th>Название файла</th>
+              <th>Дата загрузки</th>
+              <th>Фрагментов</th>
+              <th style="text-align: right;">Действие</th>
+            </tr>
+          </thead>
+          <tbody id="docsTableBody">
+            <!-- Список рендерится через JS -->
+          </tbody>
+        </table>
+        <div id="emptyNotice" class="empty-state" style="display: none;">
+          В базе пока нет документов. Загрузите первый документ выше, чтобы бот начал отвечать по нему!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentFile = null;
+
+function getToken() {
+  return localStorage.getItem('davinci_admin_token') || '';
+}
+
+function showMsg(containerId, text, isError = false) {
+  const el = document.getElementById(containerId);
+  el.className = 'msg ' + (isError ? 'error' : 'success');
+  el.textContent = text;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 6000);
+}
+
+// Авторизация
+async function handleLogin(e) {
+  e.preventDefault();
+  const password = document.getElementById('passwordInput').value.trim();
+  if (!password) return;
+
+  try {
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password })
+    });
+    const data = await res.json();
+    if (res.ok && data.token) {
+      localStorage.setItem('davinci_admin_token', data.token);
+      checkAuth();
+    } else {
+      showMsg('authMsg', data.error || 'Неверный пароль', true);
+    }
+  } catch (err) {
+    showMsg('authMsg', 'Ошибка связи с сервером', true);
+  }
+}
+
+function logout() {
+  localStorage.removeItem('davinci_admin_token');
+  checkAuth();
+}
+
+function checkAuth() {
+  const token = getToken();
+  if (token) {
+    document.getElementById('authSection').style.display = 'none';
+    document.getElementById('dashboardSection').style.display = 'block';
+    document.getElementById('logoutBtn').style.display = 'inline-block';
+    loadDocuments();
+  } else {
+    document.getElementById('authSection').style.display = 'block';
+    document.getElementById('dashboardSection').style.display = 'none';
+    document.getElementById('logoutBtn').style.display = 'none';
+  }
+}
+
+// Drag & drop
+const dropzone = document.getElementById('dropzone');
+['dragenter', 'dragover'].forEach(name => {
+  dropzone.addEventListener(name, (e) => { e.preventDefault(); dropzone.classList.add('hover'); });
+});
+['dragleave', 'drop'].forEach(name => {
+  dropzone.addEventListener(name, (e) => { e.preventDefault(); dropzone.classList.remove('hover'); });
+});
+dropzone.addEventListener('drop', (e) => {
+  const files = e.dataTransfer.files;
+  if (files.length) handleFile(files[0]);
+});
+
+function onFileSelected(input) {
+  if (input.files.length) handleFile(input.files[0]);
+}
+
+function handleFile(file) {
+  const ext = file.name.split('.').pop().toLowerCase();
+  if (ext !== 'txt' && ext !== 'md') {
+    showMsg('dashMsg', 'Поддерживаются только текстовые файлы (.txt, .md)', true);
+    return;
+  }
+  if (file.size > 1024 * 1024) {
+    showMsg('dashMsg', 'Размер файла превышает лимит в 1 МБ', true);
+    return;
+  }
+  currentFile = file;
+  document.getElementById('selectedFileName').textContent = `✓ Выбран: ${file.name} (${(file.size / 1024).toFixed(1)} КБ)`;
+}
+
+// Загрузка документа
+async function uploadDocument() {
+  const uploadBtn = document.getElementById('uploadBtn');
+  let filename = '';
+  let content = '';
+
+  const manualContent = document.getElementById('manualDocContent').value.trim();
+  const manualName = document.getElementById('manualDocName').value.trim();
+
+  if (currentFile) {
+    filename = currentFile.name;
+    uploadBtn.disabled = true;
+    uploadBtn.textContent = 'Чтение файла...';
+    try {
+      content = await currentFile.text();
+    } catch (err) {
+      uploadBtn.disabled = false;
+      uploadBtn.textContent = 'Загрузить и проиндексировать';
+      showMsg('dashMsg', 'Не удалось прочитать файл', true);
+      return;
+    }
+  } else if (manualContent) {
+    filename = manualName || 'ручной_текст.md';
+    content = manualContent;
+  } else {
+    showMsg('dashMsg', 'Пожалуйста, выберите файл .txt / .md или введите текст', true);
+    return;
+  }
+
+  uploadBtn.disabled = true;
+  uploadBtn.textContent = 'Индексация через OpenAI API...';
+
+  try {
+    const res = await fetch('/api/admin/upload', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getToken()}`
+      },
+      body: JSON.stringify({ filename, content })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      showMsg('dashMsg', `Документ "${data.filename}" успешно добавлен! Создано фрагментов: ${data.fragment_count}`);
+      // Очистка полей
+      currentFile = null;
+      document.getElementById('selectedFileName').textContent = '';
+      document.getElementById('fileInput').value = '';
+      document.getElementById('manualDocContent').value = '';
+      document.getElementById('manualDocName').value = '';
+      loadDocuments();
+    } else {
+      if (res.status === 401) logout();
+      showMsg('dashMsg', data.error || 'Ошибка при загрузке документа', true);
+    }
+  } catch (err) {
+    showMsg('dashMsg', 'Сетевая ошибка при загрузке', true);
+  } finally {
+    uploadBtn.disabled = false;
+    uploadBtn.textContent = 'Загрузить и проиндексировать';
+  }
+}
+
+// Загрузка списка документов
+async function loadDocuments() {
+  try {
+    const res = await fetch('/api/admin/documents', {
+      headers: { 'Authorization': `Bearer ${getToken()}` }
+    });
+    if (res.status === 401) {
+      logout();
+      return;
+    }
+    const data = await res.json();
+    const docs = data.documents || [];
+    renderDocuments(docs);
+  } catch (err) {
+    console.error('Ошибка загрузки документов:', err);
+  }
+}
+
+function renderDocuments(docs) {
+  const tbody = document.getElementById('docsTableBody');
+  const emptyNotice = document.getElementById('emptyNotice');
+  const badge = document.getElementById('docCountBadge');
+
+  badge.textContent = `${docs.length} ${getNoun(docs.length, 'документ', 'документа', 'документов')}`;
+
+  if (!docs.length) {
+    tbody.innerHTML = '';
+    emptyNotice.style.display = 'block';
+    return;
+  }
+
+  emptyNotice.style.display = 'none';
+  tbody.innerHTML = docs.map(d => `
+    <tr>
+      <td><span style="color: var(--muted); font-size: 12px;">#${d.id}</span></td>
+      <td><b style="color: var(--wine);">${escapeHtml(d.name)}</b></td>
+      <td style="color: var(--muted); font-size: 13px;">${d.uploaded_at}</td>
+      <td><span class="badge">${d.fragment_count} фрагм.</span></td>
+      <td style="text-align: right;">
+        <button class="btn danger" onclick="deleteDoc(${d.id}, '${escapeHtml(d.name)}')">Удалить</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+async function deleteDoc(id, name) {
+  if (!confirm(`Удалить документ "${name}" и все его фрагменты из базы?`)) return;
+
+  try {
+    const res = await fetch(`/api/admin/documents/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${getToken()}` }
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      showMsg('dashMsg', `Документ #${id} удалён`);
+      loadDocuments();
+    } else {
+      showMsg('dashMsg', data.error || 'Ошибка удаления', true);
+    }
+  } catch (err) {
+    showMsg('dashMsg', 'Сетевая ошибка при удалении', true);
+  }
+}
+
+async function reindexAll() {
+  const btn = document.getElementById('reindexBtn');
+  if (!confirm('Переиндексировать все документы? Будут заново рассчитаны эмбеддинги через OpenAI API.')) return;
+
+  btn.disabled = true;
+  btn.textContent = '⏳ Переиндексация...';
+
+  try {
+    const res = await fetch('/api/admin/reindex', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${getToken()}` }
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      showMsg('dashMsg', `Успешно переиндексировано: документов — ${data.documents}, фрагментов — ${data.fragments}`);
+      loadDocuments();
+    } else {
+      showMsg('dashMsg', data.error || 'Ошибка переиндексации', true);
+    }
+  } catch (err) {
+    showMsg('dashMsg', 'Ошибка при обращении к серверу', true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⟳ Переиндексировать всё';
+  }
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function getNoun(number, one, two, five) {
+  let n = Math.abs(number);
+  n %= 100;
+  if (n >= 5 && n <= 20) return five;
+  n %= 10;
+  if (n === 1) return one;
+  if (n >= 2 && n <= 4) return two;
+  return five;
+}
+
+// Запуск проверки при загрузке страницы
+checkAuth();
+</script>
+</body>
+</html>
